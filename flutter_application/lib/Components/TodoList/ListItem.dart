@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/Page/TodoList/Provider/createProvider.dart';
-import 'package:flutter_application/Page/TodoList/Provider/model.dart';
+import 'package:flutter_application/Components/TodoList/Provider/createProvider.dart';
+import 'package:flutter_application/Components/TodoList/Provider/model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ListItem extends ConsumerWidget {
@@ -50,7 +50,7 @@ class ListItem extends ConsumerWidget {
           )),
           TextButton(
             onPressed: () => todosProviderRead.removeTodo(todo.id),
-            child: Text('删除'),
+            child: const Text('删除'),
           )
         ],
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/Page/TodoList/Provider/createProvider.dart';
+import 'package:flutter_application/Components/TodoList/Provider/createProvider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AddTodo extends ConsumerStatefulWidget {
@@ -21,13 +21,14 @@ class _AddTodoState extends ConsumerState<AddTodo> {
         ),
         TextButton(
           onPressed: () => _onPressed(),
-          child: Text('新 增'),
+          child: const Text('新 增'),
         )
       ],
     );
   }
 
   _onPressed() async {
+    if (_controller.text.trim().isEmpty) return;
     ref.read(todosProvider.notifier).addTodo(_controller.text);
     _controller.text = '';
   }
