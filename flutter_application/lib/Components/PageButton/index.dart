@@ -22,14 +22,24 @@ class _PageButtonState extends State<PageButton> {
     canGoToPreviousPageProvider = Provider<bool>((ref) {
       return ref.watch(pageButtonNotifierProvider) > 0;
     });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print('build');
     return Row(
       children: [
+        Consumer(builder: (context, ref, child) {
+          ref.listen<bool>(canGoToPreviousPageProvider,
+              (bool? pre, bool current) {
+            print('pre$pre current$current');
+          });
+          final onPressed = ref.watch(canGoToPreviousPageProvider)
+              ? ref.read(pageButtonNotifierProvider.notifier).pre
+              : null;
+          return TextButton(onPressed: onPressed, child: const Text('上一页 缓存'));
+        }),
         Consumer(builder: (context, ref, child) {
           print('preNew');
           final onPressed = ref.watch(canGoToPreviousPageProvider)
@@ -104,3 +114,5 @@ class _PageButtonState extends State<PageButton> {
 //     ]);
 //   }
 // }
+
+

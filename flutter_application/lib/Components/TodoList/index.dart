@@ -153,8 +153,10 @@ class TodoList extends StatelessWidget {
                   ),
                   Expanded(child: Consumer(
                     builder: (context, ref, child) {
+                      // final List<Todo> notCompletedTodos =
+                      //     getNotCompletedTodos(ref);
                       final List<Todo> notCompletedTodos =
-                          getNotCompletedTodos(ref);
+                          ref.watch(getNotCompletedTodos);
                       print(2);
                       return ListView.builder(
                         itemCount: notCompletedTodos.length,

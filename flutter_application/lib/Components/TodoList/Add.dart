@@ -2,34 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application/Components/TodoList/Provider/createProvider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddTodo extends ConsumerStatefulWidget {
+class AddTodo extends ConsumerWidget {
   const AddTodo({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _AddTodoState();
-}
-
-class _AddTodoState extends ConsumerState<AddTodo> {
-  final TextEditingController _controller = TextEditingController(text: '');
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       children: [
         Expanded(
-          child: TextField(controller: _controller),
+          child: TextField(controller: ref.watch(todosProvider).value),
         ),
         TextButton(
-          onPressed: () => _onPressed(),
+          onPressed: () {
+            // addTodo(_controller.text);
+            ref.read(todosProvider.notifier).addTodo();
+          },
           child: const Text('新 增'),
+        ),
+        TextButton(
+          onPressed: () {
+            // addTodo(_controller.text);
+            ref.read(todosProvider.notifier).addCount();
+          },
+          child: const Text('新 增 count'),
+        ),
+        TextButton(
+          onPressed: () => ref.refresh(todosProvider),
+          child: const Text('重 置'),
         )
       ],
     );
-  }
-
-  _onPressed() async {
-    if (_controller.text.trim().isEmpty) return;
-    ref.read(todosProvider.notifier).addTodo(_controller.text);
-    _controller.text = '';
   }
 }

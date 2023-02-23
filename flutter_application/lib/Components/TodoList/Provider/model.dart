@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
+
+@immutable
 class Todo {
-  Todo(
+  const Todo(
       {required this.title,
       required this.id,
       required this.isCompleted,
@@ -25,5 +28,24 @@ class Todo {
       createDate: createDate ?? this.createDate,
       finishDate: finishDate ?? this.finishDate,
     );
+  }
+}
+
+@immutable
+class Todos {
+  const Todos(
+      {required this.todoList, required this.value, required this.count});
+  final TextEditingController value;
+  final List<Todo> todoList;
+  final int count;
+  Todos copyWith({
+    TextEditingController? value,
+    List<Todo>? todoList,
+    int? count,
+  }) {
+    return Todos(
+        value: value ?? this.value,
+        todoList: todoList ?? this.todoList,
+        count: count ?? this.count);
   }
 }
